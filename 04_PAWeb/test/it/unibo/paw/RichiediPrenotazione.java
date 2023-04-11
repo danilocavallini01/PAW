@@ -14,7 +14,7 @@ public class RichiediPrenotazione {
 		TavoloRepository tr = new TavoloRepository(DataSource.DB2);
 		try {
 			
-			sr.richiestaPrenotazione("danilo", new Date(), 2,"3428851345", tr);
+			System.out.println(sr.richiestaPrenotazione("danilo", new Date(), 2,"3428851345", tr));
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

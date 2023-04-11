@@ -45,7 +45,7 @@ public class PrenotazioniRepository {
         + DATA + ", "
         + NUM_PERSONE + ", "
         + CELLULARE + ", "
-        + ID_TAVOLO + ", "
+        + ID_TAVOLO
     + ") VALUES (?,?,?,?,?)";
     
     public PrenotazioniRepository(int type) {

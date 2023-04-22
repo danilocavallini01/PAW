@@ -1,6 +1,17 @@
 public enum PropertyType {
-    STRING,
-    INT,
-    FLOAT,
-    DATE
+    STRING("String"),
+    INT("int"),
+    FLOAT("Float"),
+    DATE("Date"),
+    BOOLEAN("boolean");
+    
+    private String type;
+
+    private PropertyType(String type) {
+        this.type = type;
+    }
+
+    public String toString() {
+        return this.type;
+    }
 }

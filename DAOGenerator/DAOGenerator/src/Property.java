@@ -20,7 +20,7 @@ public class Property {
     }
 
     public Property(String name, PropertyType type) {
-        this.name = name;
+        this.name = name.toLowerCase();
         this.type = type;
     }
 
@@ -36,5 +36,9 @@ public class Property {
         } else {
             return null;
         }
+    }
+
+    public String getJavaCode() {
+        return this.type + " " + this.name + ";"; 
     }
 }

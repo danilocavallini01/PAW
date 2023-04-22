@@ -1,7 +1,8 @@
+package it.unibo.paw.dao;
 
-import it.unibo.paw.db2.Db2DAOFactory;
-import it.unibo.paw.hsqldb.HsqldbDAOFactory;
-import it.unibo.paw.mysql.MySqlDAOFactory;
+import it.unibo.paw.dao.db2.Db2DAOFactory;
+import it.unibo.paw.dao.hsqldb.HsqldbDAOFactory;
+import it.unibo.paw.dao.DAOFactory;
 
 public abstract class DAOFactory {
 
@@ -46,3 +47,9 @@ public abstract class DAOFactory {
 	
 	
 	// --- Factory specification: concrete factories implementing this spec must provide this methods! ---
+
+	
+	//Method to obtain a DATA ACCESS OBJECT for the datatype Ristorante
+	public abstract RistoranteDAO getRistoranteDAO();
+
+}

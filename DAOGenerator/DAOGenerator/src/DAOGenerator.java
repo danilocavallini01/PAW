@@ -1,45 +1,50 @@
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class DAOGenerator {
 
-	final String spr = File.separator;
-
-	final String TEMPLATE_DIR = ".." + spr + "files" + spr;
-	final String JAVA_EXT = ".java";
-	final String OUTPUT_DIR = "." + spr + "output" + spr;
-
-	final String DB2_DIR = OUTPUT_DIR + "db2" + spr;
-	final String HSQLDB_DIR = OUTPUT_DIR + "hsqldb" + spr;
-	final String MYSQL_DIR = OUTPUT_DIR + "mysql" + spr;
-
-	final int BUFFER_LENGTH = 1;
-
-	/** ---------------------------------------
-	 *    FACTORIES
-	 *  ---------------------------------------
-	 */
-	final String DAO_FACTORY_NAME = "DAOFactory";
-	final String DAO_FACTORY_TOTAL = OUTPUT_DIR  + DAO_FACTORY_NAME + JAVA_EXT;
-
-	final String DB2_DAO_FACTORY_NAME = "Db2DAOFactory";
-	final String DB2_DAO_FACTORY_TOTAL = DB2_DIR + DB2_DAO_FACTORY_NAME + JAVA_EXT;
-	
-	final String HSQLDB_DAO_FACTORY_NAME = "HsqldbDAOFactory";
-	final String HSQLDB_DAO_FACTORY_TOTAL = HSQLDB_DIR + HSQLDB_DAO_FACTORY_NAME + JAVA_EXT;
-
-	final String MYSQL_DAO_FACTORY_NAME = "MySqlDAOFactory";
-	final String MYSQL_DAO_FACTORY_TOTAL = MYSQL_DIR + MYSQL_DAO_FACTORY_NAME + JAVA_EXT;
-
 	private List<DAOClass> classes;
+
+	private final String spr = File.separator;
+
+	private final String TEMPLATE_DIR = ".." + spr + "files" + spr;
+	private final String JAVA_EXT = ".java";
+	private final String OUTPUT_DIR = "." + spr + "it" + spr + "unibo" + spr + "paw" + spr + "dao" + spr;
+
+	private final String DB2 = "Db2";
+	private final String HSQLDB = "Hsqldb";
+	private final String MYSQL = "MySql";
+
+	private final String DB2_DIR = OUTPUT_DIR + "db2" + spr;
+	private final String HSQLDB_DIR = OUTPUT_DIR + "hsqldb" + spr;
+	private final String MYSQL_DIR = OUTPUT_DIR + "mysql" + spr;
+
+	private final int BUFFER_LENGTH = 1;
 
 	/**
 	 * ---------------------------------------
+	 * FACTORIES
+	 * ---------------------------------------
 	 */
+	
+	private final String DAO_FACTORY_NAME = "DAOFactory";
+	private final String DAO_FACTORY_TOTAL = OUTPUT_DIR + DAO_FACTORY_NAME + JAVA_EXT;
+
+	private final String DB2_DAO_FACTORY_NAME = DB2 + DAO_FACTORY_NAME;
+	private final String DB2_DAO_FACTORY_TOTAL = DB2_DIR + DB2_DAO_FACTORY_NAME + JAVA_EXT;
+
+	private final String HSQLDB_DAO_FACTORY_NAME = HSQLDB +  DAO_FACTORY_NAME;
+	private final String HSQLDB_DAO_FACTORY_TOTAL = HSQLDB_DIR + HSQLDB_DAO_FACTORY_NAME + JAVA_EXT;
+
+	private final String MYSQL_DAO_FACTORY_NAME = MYSQL + DAO_FACTORY_NAME;
+	private final String MYSQL_DAO_FACTORY_TOTAL = MYSQL_DIR + MYSQL_DAO_FACTORY_NAME + JAVA_EXT;
+
+	// ---------------------------------------
 
 	public static void main(String[] args) {
 		try {
@@ -57,38 +62,39 @@ public class DAOGenerator {
 			DAOClass DAOClass;
 
 			System.out.print("Inserisci nome della classe/tabella (q per finire): ");
-			while ( sc.hasNext() ) {
+			while (sc.hasNext()) {
 
 				className = sc.nextLine();
-				if ( className.equalsIgnoreCase("q") ) {
+				if (className.equalsIgnoreCase("q")) {
 					break;
 				}
 
 				DAOClass = new DAOClass(className);
 
-				System.out.print("Nome proprietà (q per finire): ");
+				System.out.print("\tNome proprietà (q per finire): ");
 
-				while ( sc.hasNext() ) {
+				while (sc.hasNext()) {
 
 					property = sc.nextLine();
 
-					if ( property.equalsIgnoreCase("q") ) {
+					if (property.equalsIgnoreCase("q")) {
 						break;
 					}
 
-					System.out.print("Tipo proprietà: ");
+					System.out.print("\tTipo proprietà: ");
 					type = sc.nextLine();
 
-					if ( ( pType = Property.getTypeOf(type) ) == null ){
-						System.out.println("Tipo di proprietà inesistente, riparto");
-						System.out.print("Nome proprietà (q per finire): ");
+					try {
+						pType = PropertyType.valueOf(type.toUpperCase());
+					} catch (IllegalArgumentException e) {
+						System.out.println("\tTipo di proprietà inesistente, riparto");
+						System.out.print("\n\tNome proprietà (q per finire): ");
 						continue;
 					}
 
 					DAOClass.addProperty(new Property(property, pType));
 
-					System.out.println("Proprietà " + property + " aggiunta\n");
-					System.out.print("Nome proprietà (q per finire): ");
+					System.out.print("\n\tNome proprietà (q per finire): ");
 				}
 
 				generator.addDAOClass(DAOClass);
@@ -98,7 +104,9 @@ public class DAOGenerator {
 
 			sc.close();
 
-			
+			generator.generateDaoInterfaces();
+			generator.generateDTOClasses();
+			generator.updateDAOFactories();
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -111,7 +119,86 @@ public class DAOGenerator {
 
 	public void addDAOClass(DAOClass dao) {
 		this.classes.add(dao);
-	} 
+	}
+
+	/**
+	 * ------------------------------------------------------------
+	 * BUILD xxxDAO.java and xxxDTO.java FILES
+	 * ----------------------------------------------------------
+	 */
+	public void generateDaoInterfaces() throws IOException {
+
+		for (DAOClass dao : this.classes) {
+			dao.buildDaoInterface(OUTPUT_DIR);
+		}
+	}
+
+	public void generateDTOClasses() throws IOException {
+
+		for (DAOClass dao : this.classes) {
+			dao.buildDTOClass(OUTPUT_DIR);
+		}
+	}
+
+	/**
+	 * ------------------------------------------------------------
+	 * UPDATE FACTORY FILES
+	 * ------------------------------------------------------------
+	 */
+	private final String TAB = "\t";
+
+	public void updateDAOFactory() throws IOException {
+
+		File daoFactory = new File(DAO_FACTORY_TOTAL);
+		FileWriter fw = new FileWriter(daoFactory, true);
+
+
+		for (DAOClass dao : this.classes) {
+			String factory = dao.getDAOConcreteFactoryCode();
+
+			fw.write("\n");
+			fw.write(TAB + "//Method to obtain a DATA ACCESS OBJECT for the datatype " + dao.getName() + "\n");
+			fw.write(TAB +  factory + "\n");
+			
+		}
+
+		fw.write("}\n");
+
+		fw.close();
+	}
+
+	public void updateXXXDaoFactory(String factoryType) throws IOException{
+		File daoFactory = new File(OUTPUT_DIR + factoryType.toLowerCase() + spr + factoryType + DAO_FACTORY_NAME + JAVA_EXT);
+		FileWriter fw = new FileWriter(daoFactory, true);
+
+
+		for (DAOClass dao : this.classes) { 
+			String factory = dao.getXXXDAOConcreteFactoryCode();
+
+			fw.write(TAB + factory + "\n");	
+			fw.write(TAB + TAB + "return new " + factoryType + dao.getDAOName() + "();\n");
+			fw.write(TAB + "}\n");		
+		}
+
+		fw.write("}\n");
+
+		fw.close();
+	}
+
+	public void updateDAOFactories() throws IOException {
+
+		this.updateDAOFactory();
+
+		this.updateXXXDaoFactory(DB2);
+		this.updateXXXDaoFactory(HSQLDB);
+		this.updateXXXDaoFactory(MYSQL);
+	}
+
+	/**
+	 * ------------------------------------------------------------
+     * CREATE EMPTY FACTORY FILES
+	 * ------------------------------------------------------------
+	 */
 
 	public void createEmptyDaoFactories() throws Exception {
 
@@ -140,32 +227,31 @@ public class DAOGenerator {
 	}
 
 	public void createOutDirs() throws Exception {
-		
+
 		File outputDir = new File(OUTPUT_DIR);
-		if ( !outputDir.exists() ) {
-			if (!outputDir.mkdir()) {
+		if (!outputDir.exists()) {
+			if (!outputDir.mkdirs()) {
 				throw new Exception("outputDir not created", null);
 			}
 		}
 
 		outputDir = new File(DB2_DIR);
-		if ( !outputDir.exists() ) {
-			if (!outputDir.mkdir()) {
+		if (!outputDir.exists()) {
+			if (!outputDir.mkdirs()) {
 				throw new Exception("outputDir not created", null);
 			}
 		}
 
 		outputDir = new File(HSQLDB_DIR);
-		if ( !outputDir.exists() ) {
-			if (!outputDir.mkdir()) {
+		if (!outputDir.exists()) {
+			if (!outputDir.mkdirs()) {
 				throw new Exception("outputDir not created", null);
 			}
 		}
-		
 
 		outputDir = new File(MYSQL_DIR);
-		if ( !outputDir.exists() ) {
-			if (!outputDir.mkdir()) {
+		if (!outputDir.exists()) {
+			if (!outputDir.mkdirs()) {
 				throw new Exception("outputDir not created", null);
 			}
 		}

@@ -1,10 +1,10 @@
+package it.unibo.paw.dao.db2;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import it.unibo.paw.dao.CourseDAO;
-import it.unibo.paw.dao.CourseStudentMappingDAO;
 import it.unibo.paw.dao.DAOFactory;
-import it.unibo.paw.dao.StudentDAO;
+import it.unibo.paw.dao.mysql.MySqlDAOFactory;
 
 public class Db2DAOFactory extends DAOFactory {
 
@@ -77,3 +77,9 @@ public class Db2DAOFactory extends DAOFactory {
 	}
 
 	// --------------------------------------------
+
+	public RistoranteDAO getRistoranteDAO(){
+
+		return new Db2RistoranteDAO();
+	}
+}

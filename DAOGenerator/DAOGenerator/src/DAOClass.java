@@ -145,7 +145,9 @@ public class DAOClass {
     }
 
     /**
-     * -------------------------------------------------------------------
+     *  ----------------------------------------------------------------------------------
+     * BUILD XXXDTO.JAVA FILE
+     * ----------------------------------------------------------------------------------
      */
 
     private final String PRIVATE = "private ";
@@ -154,10 +156,11 @@ public class DAOClass {
     private final String FINAL = "final ";
     private final String THIS = "this.";
     
-
+    private final String IMPORT_SERIALIZABLE = "import java.io.Serializable" + SCNL;
     private final String SERIALIZABLE = "implements Serializable " + CURL_BRAK_OPEN;
     private final String SERIAL_VERSION = TAB + PRIVATE + STATIC + FINAL + " long serialVersionUID = 1L" + SCNL; 
-  
+    
+
     private final String END_CONTRUCTOR = TAB + CURL_BRAK_CLOSE;
     private final String ALREADY_LOADED_CONSTRUCT = TAB + TAB + THIS + "loaded = false" + SCNL;
 
@@ -166,6 +169,8 @@ public class DAOClass {
         FileWriter fw = new FileWriter(f);
 
         //package it.unibo.paw.dao;
+        fw.write(IMPORT_SERIALIZABLE);
+        fw.write(NL);
         fw.write(PACKAGE);
         fw.write(NL);
 

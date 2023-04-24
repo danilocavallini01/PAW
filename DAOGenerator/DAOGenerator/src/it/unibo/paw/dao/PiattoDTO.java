@@ -1,5 +1,7 @@
 package it.unibo.paw.dao;
 
+import java.io.Serializable;
+
 public class PiattoDTO implements Serializable {
 
 

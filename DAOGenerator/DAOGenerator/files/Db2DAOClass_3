@@ -1,0 +1,14 @@
+	
+	// SELECT * FROM table WHERE idcolumn = ?;
+	static String read_by_id = "SELECT * " +
+			"FROM " + TABLE + " " +
+			"WHERE " + ID + " = ? ";
+
+	// DELETE FROM table WHERE idcolumn = ?;
+	static String delete = "DELETE " +
+			"FROM " + TABLE + " " +
+			"WHERE " + ID + " = ? ";
+
+	// UPDATE table SET xxxcolumn = ?, ... WHERE idcolumn = ?;
+	static String update = "UPDATE " + TABLE + " " +
+			"SET " + 

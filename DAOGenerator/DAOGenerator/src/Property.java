@@ -20,22 +20,8 @@ public class Property {
     }
 
     public Property(String name, PropertyType type) {
-        this.name = name.toLowerCase();
+        this.name = name;
         this.type = type;
-    }
-
-    public static PropertyType getTypeOf(String type) {
-        if ( type.equalsIgnoreCase("String") ) {
-            return PropertyType.STRING;
-        } else if ( type.equalsIgnoreCase("Int") ) {
-            return PropertyType.INT;
-        } else if ( type.equalsIgnoreCase("Float") ) {
-            return PropertyType.FLOAT;
-        } else if ( type.equalsIgnoreCase("Date") ) {
-            return PropertyType.DATE;
-        } else {
-            return null;
-        }
     }
 
     public String getJavaCode() {

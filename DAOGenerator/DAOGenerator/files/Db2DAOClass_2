@@ -1,0 +1,6 @@
+    
+    // == STATEMENT SQL ====================================================================
+
+    // INSERT INTO table ( name,description, ...) VALUES ( ?,?, ... );
+    static final String insert = "INSERT " +
+            "INTO " + TABLE + " ( " +

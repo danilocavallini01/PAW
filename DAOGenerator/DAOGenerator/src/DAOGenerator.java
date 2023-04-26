@@ -10,9 +10,9 @@ public class DAOGenerator {
 
 	private List<DAOClass> classes;
 
-	private final String spr = File.separator;
+	private static final String spr = File.separator;
 
-	private final String TEMPLATE_DIR = ".." + spr + "files" + spr;
+	public static final String TEMPLATE_DIR = ".." + spr + "files" + spr;
 	private final String JAVA_EXT = ".java";
 	private final String OUTPUT_DIR = "." + spr + "it" + spr + "unibo" + spr + "paw" + spr + "dao" + spr;
 
@@ -24,7 +24,7 @@ public class DAOGenerator {
 	private final String HSQLDB_DIR = OUTPUT_DIR + "hsqldb" + spr;
 	private final String MYSQL_DIR = OUTPUT_DIR + "mysql" + spr;
 
-	private final int BUFFER_LENGTH = 1;
+	private static final int BUFFER_LENGTH = 1;
 
 	/**
 	 * ---------------------------------------
@@ -107,6 +107,7 @@ public class DAOGenerator {
 			generator.generateDaoInterfaces();
 			generator.generateDTOClasses();
 			generator.updateDAOFactories();
+			generator.generateDb2Classes();
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -123,7 +124,7 @@ public class DAOGenerator {
 
 	/**
 	 * ------------------------------------------------------------
-	 * BUILD xxxDAO.java and xxxDTO.java FILES
+	 * BUILD xxxDAO.java and xxxDTO.java and DB2xxxDAO.java FILES
 	 * ----------------------------------------------------------
 	 */
 	public void generateDaoInterfaces() throws IOException {
@@ -139,6 +140,13 @@ public class DAOGenerator {
 			dao.buildDTOClass(OUTPUT_DIR);
 		}
 	}
+
+	public void generateDb2Classes() throws IOException {
+		for (DAOClass dao : this.classes) {
+			dao.buildDb2DAO(DB2_DIR);
+		}
+	}
+
 
 	/**
 	 * ------------------------------------------------------------
@@ -215,14 +223,8 @@ public class DAOGenerator {
 		File f = new File(factoryFileName);
 		FileWriter fw = new FileWriter(f);
 
-		FileReader fr = new FileReader(TEMPLATE_DIR + templateFile);
-		char[] buffer = new char[BUFFER_LENGTH];
+		DAOGenerator.importFile(TEMPLATE_DIR + templateFile, fw);
 
-		while (fr.read(buffer, 0, BUFFER_LENGTH) != -1) {
-			fw.write(buffer, 0, buffer.length);
-		}
-
-		fr.close();
 		fw.close();
 	}
 
@@ -257,4 +259,21 @@ public class DAOGenerator {
 		}
 	}
 
+	
+	/*
+	 * ------------------------------------------------------------
+     * UTILITIES
+	 * ------------------------------------------------------------
+	 */
+
+	public static void importFile(String file, FileWriter fw) throws IOException {
+		FileReader fr = new FileReader(file);
+		char[] buffer = new char[BUFFER_LENGTH];
+
+		while (fr.read(buffer, 0, BUFFER_LENGTH) != -1) {
+			fw.write(buffer, 0, buffer.length);
+		}
+
+		fr.close();
+	}
 }

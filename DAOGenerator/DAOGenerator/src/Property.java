@@ -25,6 +25,10 @@ public class Property {
     }
 
     public String getJavaCode() {
-        return this.type + " " + this.name + ";"; 
+        return this.type.type + " " + this.name + ";"; 
+    }
+
+    public String getDb2Code() {
+        return " " + this.type.db2Sql + " ";
     }
 }

@@ -13,16 +13,16 @@ public class DAOGenerator {
 	private static final String spr = File.separator;
 
 	public static final String TEMPLATE_DIR = ".." + spr + "files" + spr;
-	private final String JAVA_EXT = ".java";
-	private final String OUTPUT_DIR = "." + spr + "it" + spr + "unibo" + spr + "paw" + spr + "dao" + spr;
+	private static final String JAVA_EXT = ".java";
+	private static final String OUTPUT_DIR = ".." + spr +"." + spr + "it" + spr + "unibo" + spr + "paw" + spr + "dao" + spr;
 
-	private final String DB2 = "Db2";
-	private final String HSQLDB = "Hsqldb";
-	private final String MYSQL = "MySql";
+	public static final String DB2 = "Db2";
+	public static final String HSQLDB = "Hsqldb";
+	public static final String MYSQL = "MySql";
 
-	private final String DB2_DIR = OUTPUT_DIR + "db2" + spr;
-	private final String HSQLDB_DIR = OUTPUT_DIR + "hsqldb" + spr;
-	private final String MYSQL_DIR = OUTPUT_DIR + "mysql" + spr;
+	private static final String DB2_DIR = OUTPUT_DIR + "db2" + spr;
+	private static final String HSQLDB_DIR = OUTPUT_DIR + "hsqldb" + spr;
+	private static final String MYSQL_DIR = OUTPUT_DIR + "mysql" + spr;
 
 	private static final int BUFFER_LENGTH = 1;
 
@@ -32,17 +32,17 @@ public class DAOGenerator {
 	 * ---------------------------------------
 	 */
 	
-	private final String DAO_FACTORY_NAME = "DAOFactory";
-	private final String DAO_FACTORY_TOTAL = OUTPUT_DIR + DAO_FACTORY_NAME + JAVA_EXT;
+	public static final String DAO_FACTORY_NAME = "DAOFactory";
+	public static final String DAO_FACTORY_TOTAL = OUTPUT_DIR + DAO_FACTORY_NAME + JAVA_EXT;
 
-	private final String DB2_DAO_FACTORY_NAME = DB2 + DAO_FACTORY_NAME;
-	private final String DB2_DAO_FACTORY_TOTAL = DB2_DIR + DB2_DAO_FACTORY_NAME + JAVA_EXT;
+	public static final String DB2_DAO_FACTORY_NAME = DB2 + DAO_FACTORY_NAME;
+	public static final String DB2_DAO_FACTORY_TOTAL = DB2_DIR + DB2_DAO_FACTORY_NAME + JAVA_EXT;
 
-	private final String HSQLDB_DAO_FACTORY_NAME = HSQLDB +  DAO_FACTORY_NAME;
-	private final String HSQLDB_DAO_FACTORY_TOTAL = HSQLDB_DIR + HSQLDB_DAO_FACTORY_NAME + JAVA_EXT;
+	public static final String HSQLDB_DAO_FACTORY_NAME = HSQLDB +  DAO_FACTORY_NAME;
+	public static final String HSQLDB_DAO_FACTORY_TOTAL = HSQLDB_DIR + HSQLDB_DAO_FACTORY_NAME + JAVA_EXT;
 
-	private final String MYSQL_DAO_FACTORY_NAME = MYSQL + DAO_FACTORY_NAME;
-	private final String MYSQL_DAO_FACTORY_TOTAL = MYSQL_DIR + MYSQL_DAO_FACTORY_NAME + JAVA_EXT;
+	public static final String MYSQL_DAO_FACTORY_NAME = MYSQL + DAO_FACTORY_NAME;
+	public static final String MYSQL_DAO_FACTORY_TOTAL = MYSQL_DIR + MYSQL_DAO_FACTORY_NAME + JAVA_EXT;
 
 	// ---------------------------------------
 
@@ -61,6 +61,7 @@ public class DAOGenerator {
 
 			DAOClass DAOClass;
 
+			
 			System.out.print("Inserisci nome della classe/tabella (q per finire): ");
 			while (sc.hasNext()) {
 
@@ -110,7 +111,7 @@ public class DAOGenerator {
 			generator.generateDb2Classes();
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -269,9 +270,10 @@ public class DAOGenerator {
 	public static void importFile(String file, FileWriter fw) throws IOException {
 		FileReader fr = new FileReader(file);
 		char[] buffer = new char[BUFFER_LENGTH];
+		int nread = 0;
 
-		while (fr.read(buffer, 0, BUFFER_LENGTH) != -1) {
-			fw.write(buffer, 0, buffer.length);
+		while ((nread = fr.read(buffer, 0, BUFFER_LENGTH)) >= BUFFER_LENGTH) {
+			fw.write(buffer, 0, nread);
 		}
 
 		fr.close();

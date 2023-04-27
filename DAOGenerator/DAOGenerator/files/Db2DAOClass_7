@@ -1,0 +1,14 @@
+		} catch (Exception e) {
+			System.err.println("insert(): failed to update entry: " + e.getMessage());
+			e.printStackTrace();
+		}
+		// --- 6. Rilascio, SEMPRE E COMUNQUE, la connessione prima di restituire il controllo al chiamante
+		finally {
+			Db2DAOFactory.closeConnection(conn);
+		}
+		// --- 7. Restituzione del risultato (eventualmente di fallimento)
+		return result;
+	}
+
+	// -------------------------------------------------------------------------------------
+

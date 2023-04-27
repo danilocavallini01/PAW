@@ -1,17 +1,19 @@
 public enum PropertyType {
-    STRING("String"),
-    INT("int"),
-    FLOAT("Float"),
-    DATE("Date"),
-    BOOLEAN("boolean");
+    STRING("String", "VARCHAR(50)"),
+    INT("int", "INT"),
+    FLOAT("Float", "DOUBLE"),
+    DATE("Date","DATE"),
+    BOOLEAN("boolean","SMALLINT");
     
-    private String type;
+    public String type;
+    public String db2Sql;
 
-    private PropertyType(String type) {
+    private PropertyType(String type, String db2Sql) {
         this.type = type;
+        this.db2Sql = db2Sql;
     }
 
     public String toString() {
-        return this.type;
+        return this.type + this.db2Sql;
     }
 }

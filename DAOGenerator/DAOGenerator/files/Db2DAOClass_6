@@ -1,0 +1,18 @@
+			
+			rs.close();
+			
+			prep_stmt.close();
+		} 
+		catch (Exception e) {
+			System.err.println("read(): failed to retrieve entry with id = " + id + ": " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		finally {
+			Db2DAOFactory.closeConnection(conn);
+		}
+		
+		return result;
+	}
+
+	// -------------------------------------------------------------------------------------

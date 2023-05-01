@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:complexType name = "VisitaType">
+        <xs:sequence>
+            <xs:element name = "email">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value=".*@.*\..*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <xs:element name = "password">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="8"/>
+                        <xs:pattern value=".*[0-9]+.*[?!*$]+.*"/>
+                        <!-- <xs:pattern value="(?=.*[0-9])(?=.*[?!*$]).*"/> -->
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <xs:element name = "sceltaDiVisita" type="SceltaDiVisitaType" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name = "SceltaDiVisitaType">
+        <xs:sequence>
+            <xs:element name = "tipo">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="abiti" />
+                        <xs:enumeration value="camice" />
+                        <xs:enumeration value="giacche" />
+                        <xs:enumeration value="gonne" />
+                        <xs:enumeration value="pantaloni" />
+                        <xs:enumeration value="ultimi arrivi" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <xs:element name = "abbigliamento" type="AbbigliamentoType" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name = "AbbigliamentoType">
+        <xs:sequence>
+            <xs:element name = "fotografia" type="xs:string" />
+            <xs:element name = "descrizioneCapo" type="xs:string" />
+            <xs:element name = "prezzo" type="xs:positiveInteger" />
+        </xs:sequence>
+        <xs:attribute name="selezionato" type="xs:boolean" />
+    </xs:complexType>
+
+
+    <xs:element name="Visita" type="VisitaType" />
+
+</xs:schema>

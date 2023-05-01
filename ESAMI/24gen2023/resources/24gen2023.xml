@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Visita xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="24gen2023.xsd">
+	<email>email@email.com</email>
+	<password>passw5$Ddd</password>
+	<sceltaDiVisita>
+		<tipo>abiti</tipo>
+		<abbigliamento selezionato="true">
+			<fotografia>ciao.png</fotografia>
+			<descrizioneCapo>molto bello</descrizioneCapo>
+			<prezzo>1</prezzo>
+		</abbigliamento>
+		<abbigliamento>
+			<fotografia>ciao.png</fotografia>
+			<descrizioneCapo>molto bello</descrizioneCapo>
+			<prezzo>3</prezzo>
+		</abbigliamento>
+		<abbigliamento selezionato="true">
+			<fotografia>ciao.pndsdsg</fotografia>
+			<descrizioneCapo>molto brutto</descrizioneCapo>
+			<prezzo>2</prezzo>
+		</abbigliamento>
+	</sceltaDiVisita>
+</Visita>

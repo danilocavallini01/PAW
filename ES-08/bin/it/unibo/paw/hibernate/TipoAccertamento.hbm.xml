@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="it.unibo.paw.hibernate.TipoAccertamento" table="tipoAccertamento">
+		<id name="id" column="id">
+			<!-- <generator class="native"/> -->
+		</id>
+		
+		<property name="codiceTipoAccertamento" column="codiceTipoAccertamento" />
+		<property name="descrizione" column="descrizione" />
+
+		<set name="ospedali" table="ospedale_tipoaccertamento" lazy="true">
+			<key column="idTipoAccertamento" />
+			<many-to-many column="idOspedale" class="it.unibo.paw.hibernate.Ospedale" />
+		</set>
+		<set name="accertamenti" table="accertamenti" inverse="true" lazy="true" fetch="select">
+			<key column="id" not-null="false"/>
+			<one-to-many class="hibernate.Accertamento"/>
+		</set>
+	</class>
+</hibernate-mapping>

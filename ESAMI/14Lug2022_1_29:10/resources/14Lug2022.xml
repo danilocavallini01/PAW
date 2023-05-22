@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Visita xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="14Lug2022.xsd">
+  <email>p@p.p</email>
+  <password>ds$dd3dd</password>
+  <nazione>nazione</nazione>
+  <citta>citta</citta>
+  <numeroStelle>0</numeroStelle>
+  <fasciaPrezzo>bassa</fasciaPrezzo>
+  <risultato visitatoLink="false">
+    <nomeHotel>Hotel1</nomeHotel>
+    <fotografiaHotel>fotografiaHotel</fotografiaHotel>
+    <giudizioUtenti>eccellente</giudizioUtenti>
+    <prezzo>0</prezzo>
+  </risultato>
+  <risultato visitatoLink="true">
+    <nomeHotel>Hotel2</nomeHotel>
+    <fotografiaHotel>fotografiaHotel</fotografiaHotel>
+    <giudizioUtenti>eccellente</giudizioUtenti>
+    <prezzo>2</prezzo>
+  </risultato>
+  <risultato visitatoLink="true">
+    <nomeHotel>Hotel3</nomeHotel>
+    <fotografiaHotel>fotografiaHotel</fotografiaHotel>
+    <giudizioUtenti>eccellente</giudizioUtenti>
+    <prezzo>5</prezzo>
+  </risultato>
+</Visita>

@@ -1,0 +1,76 @@
+<?xml version="1.0" ?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:complexType name="RicercaType">
+		<xs:sequence>
+			<xs:element name="email">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value=".*@.*\..*" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+			<xs:element name="password">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="8" />
+						<xs:pattern value=".*([0-9].*[?!*$]|[?!*$].*[0-9])+.*" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+			<xs:element name="nazione" type="xs:string" />
+			<xs:element name="citta" type="xs:string" />
+
+			<xs:element name="numeroStelle">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="0" />
+						<xs:maxInclusive value="5" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+			<xs:element name="fasciaPrezzo" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="bassa" />
+						<xs:enumeration value="media" />
+						<xs:enumeration value="alta" />
+						<xs:enumeration value="lusso superiore" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+			<xs:element name="risultato" type="RisutatiRicercaType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+
+	<xs:complexType name="RisutatiRicercaType">
+		<xs:sequence>
+			<xs:element name="nomeHotel" type="xs:string" />
+			<xs:element name="fotografiaHotel" type="xs:string" />
+			
+			<xs:element name="giudizioUtenti">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="eccellente" />
+						<xs:enumeration value="buono" />
+						<xs:enumeration value="medio" />
+						<xs:enumeration value="sufficiente" />
+						<xs:enumeration value="mediocre" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			
+			<xs:element name="prezzo" type="xs:int" />
+		</xs:sequence>
+		<xs:attribute name="visitatoLink" type="xs:boolean" />
+	</xs:complexType>
+
+	<xs:element name="Visita" type="RicercaType" />
+
+</xs:schema>

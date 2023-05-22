@@ -14,9 +14,9 @@
 		<property name="descrizione" column="descrizione" />
 		<property name="dataCreazione" column="dataCreazione" />
 
-		<set name="materiali" table="materiale_fisico" inverse="true" fetch="select">
+		<set name="materiali" table="materiale_fisico" fetch="select">
 			<key>
-				<column name="archivio_id" not-null="true" />
+				<column name="archivio_id" />
 			</key>
 			<one-to-many class="it.unibo.paw.hibernate.MaterialeFisico" />
 		</set>

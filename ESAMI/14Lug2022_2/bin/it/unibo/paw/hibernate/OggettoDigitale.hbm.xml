@@ -13,9 +13,5 @@
 		<property name="nome" column="nome" />
 		<property name="formato" column="formato" />
 		<property name="dataDigitalizzazione" column="dataDigitalizzazione" />
-		
-		<many-to-one name="materiale" class="it.unibo.paw.hibernate.MaterialeFisico">
-			<column name="materiale_id" not-null="true"></column>
-		</many-to-one>
 	</class>
 </hibernate-mapping>

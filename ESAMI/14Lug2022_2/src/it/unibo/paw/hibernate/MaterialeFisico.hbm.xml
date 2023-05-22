@@ -14,16 +14,12 @@
 		<property name="descrizione" column="descrizione" />
 		<property name="dataCreazione" column="dataCreazione" />
 
-		<set name="oggetti" table="oggetto_digitale" inverse="true" fetch="select">
+		<set name="oggetti" table="oggetto_digitale" fetch="select">
 			<key>
-				<column name="materiale_id" not-null="true" />
+				<column name="materiale_id"/>
 			</key>
 			<one-to-many class="it.unibo.paw.hibernate.OggettoDigitale" />
 		</set>
-		
-		<many-to-one name="archivio" class="it.unibo.paw.hibernate.ArchivioFisico">
-			<column name="archivio_id" not-null="true"></column>
-		</many-to-one>
 
 	</class>
 </hibernate-mapping>

@@ -1,0 +1,11 @@
+<!ELEMENT letter (contact_from, date, contact_to, subject, salutation,
+body, closing, signature)>
+<!ELEMENT contact_from (#PCDATA) >
+<!ELEMENT date (#PCDATA) >
+<!ELEMENT contact_to (#PCDATA) >
+<!ELEMENT subject (#PCDATA) >
+<!ELEMENT salutation (#PCDATA) >
+<!ELEMENT body (paragraph+) >
+<!ELEMENT paragraph (#PCDATA) >
+<!ELEMENT closing (#PCDATA) >
+<!ELEMENT signature (#PCDATA) >

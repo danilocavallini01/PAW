@@ -1,0 +1,41 @@
+<?xml version="1.0" ?> 
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="Address_list " type="addressListType" /> 
+	
+	<xs:complexType name="addressListType"> 
+		<xs:sequence> 
+			<xs:element name = "Information" type="InformationType" maxOccurs="unbounded" />
+		</xs:sequence> 
+  	</xs:complexType> 
+	
+ 	<xs:complexType name = "InformationType"> 
+		<xs:sequence> 
+	 		<xs:element name = "Full_name" > 
+		 		<xs:complexType>
+					<xs:sequence> 
+					 		<xs:element name = "First_name" type="xs:string" /> 
+						 	<xs:element name = "Middle_name" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+						 	<xs:element name = "Last_name" type="xs:string" /> 
+					</xs:sequence> 
+				</xs:complexType>
+			</xs:element>
+			<xs:element name = "Address" type="addressType" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name = "Telephone" type="xs:string" minOccurs="0" maxOccurs="unbounded" /> 
+			<xs:element name = "Email" type="xs:string" minOccurs="0" maxOccurs="unbounded" /> 
+			<xs:element name = "Nationality" type="xs:string" minOccurs="0" /> 
+			<xs:element name = "Other_information" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence> 
+	</xs:complexType>
+	
+	<xs:complexType name = "addressType"> 
+		<xs:sequence> 
+		 	<xs:element name = "Street" type="xs:string" maxOccurs="unbounded" /> 
+			<xs:element name = "Postal_code " type="xs:integer" />
+		 	<xs:element name = "Area" type="xs:string" minOccurs="0" />
+	 	 	<xs:element name = "Country" type="xs:string" />
+		</xs:sequence> 
+  	</xs:complexType> 
+
+</xs:schema>

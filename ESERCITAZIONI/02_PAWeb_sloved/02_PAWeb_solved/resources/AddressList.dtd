@@ -1,0 +1,15 @@
+<!ELEMENT Address_list (Information+)>
+<!ELEMENT Information (Full_name, Address*, Telephone*, Email*, Nationality?, Other_information*)>
+<!ELEMENT Full_name (First_name, Middle_name*, Last_name)>
+<!ELEMENT First_name (#PCDATA)>
+<!ELEMENT Middle_name (#PCDATA)>
+<!ELEMENT Last_name (#PCDATA)>
+<!ELEMENT Address (Street+, Postal_code, Area?, Country)>
+<!ELEMENT Street (#PCDATA)>
+<!ELEMENT Postal_code (#PCDATA)>
+<!ELEMENT Area (#PCDATA)>
+<!ELEMENT Country (#PCDATA)>
+<!ELEMENT Telephone (#PCDATA)>
+<!ELEMENT Email (#PCDATA)>
+<!ELEMENT Nationality (#PCDATA)>
+<!ELEMENT Other_information (#PCDATA)>

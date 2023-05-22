@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!-- decommentare qui sotto per validare tramite DTD -->
+<!--
+<!DOCTYPE Address_list SYSTEM "AddressList.dtd">  
+<Address_list>
+-->
+
+<!-- decommentare qui sotto  per validare tramite XSD  -->
+<!-- -->
+<Address_list  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:noNamespaceSchemaLocation="AddressList.xsd">  
+<!-- -->
+         
+	<Information>
+		<Full_name>
+			<First_name>Pippo</First_name>
+			<Last_name>Goofy</Last_name>
+		</Full_name>
+	</Information>
+	<Information>
+		<Full_name>
+			<First_name>Eta</First_name>
+			<Middle_name>Pittisborum Psercy Pystachi Pseter Psersimmon Plummer-Push</Middle_name>
+			<Last_name>Beta</Last_name>
+		</Full_name>
+		<Address>
+			<Street>Saturn Road</Street>
+			<Postal_code>40123</Postal_code>
+			<Country>Space</Country>
+		</Address>
+		<Email>eta.beta15@unibo.it</Email>
+		<Nationality>Alien</Nationality>
+		<Other_information>friend of Mickey Mouse</Other_information>
+	</Information>
+	<Information>
+		<Full_name>
+			<First_name>Mickey</First_name>
+			<Last_name>Mouse</Last_name>
+		</Full_name>
+	</Information>
+	<Information>
+		<Full_name>
+			<First_name>Donald</First_name>
+			<Last_name>Duck</Last_name>
+		</Full_name>
+		<Telephone>+39-051-2093001</Telephone>
+	</Information>
+	<Information>
+		<Full_name>
+			<First_name>Donald</First_name>
+			<Last_name>Bianchi</Last_name>
+		</Full_name>
+		<Telephone>+39-051-2093002</Telephone>
+	</Information>
+</Address_list>

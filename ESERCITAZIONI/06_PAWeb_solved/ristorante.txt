@@ -1,0 +1,8 @@
+PiattoDTO [nomePiatto=Passatelli Gourmet, tipo=primo]
+PiattoDTO [nomePiatto=Tortellini in Brodo, tipo=primo]
+Questo/i piatto/i è/sono preparato/i da: E' cucina
+PiattoDTO [nomePiatto=Lasagne commestibili, tipo=primo]
+Questo/i piatto/i è/sono preparato/i da: Camst
+
+
+Sono stati trovati 1 ristoranti con almeno 4 stelle che preparano Seppie e Piselli come Secondo piatto

@@ -1,0 +1,19 @@
+<!ELEMENT recipes (recipe+, document_info)>
+<!ELEMENT recipe (recipe_head, recipe_body, recipe_footer?)>
+<!ELEMENT recipe_head (recipe_name, recipe_author?, meal_type)>
+<!ELEMENT recipe_name (#PCDATA)>
+<!ELEMENT recipe_author (#PCDATA)>
+<!ELEMENT meal_type (#PCDATA)>
+<!ELEMENT recipe_body (ingredients, directions)>
+<!ELEMENT ingredients (ingredient+)>
+<!ELEMENT ingredient (#PCDATA)>
+<!ELEMENT directions (direction)+ >
+<!ELEMENT direction (#PCDATA)>
+<!ELEMENT recipe_footer (serving?, preparation_time?, cooking_time?)>
+<!ELEMENT serving (#PCDATA)>
+<!ELEMENT preparation_time (#PCDATA)>
+<!ELEMENT cooking_time (#PCDATA)>
+<!ELEMENT document_info (document_author, date_updated, source)>
+<!ELEMENT document_author (#PCDATA)>
+<!ELEMENT date_updated (#PCDATA)>
+<!ELEMENT source (#PCDATA)>

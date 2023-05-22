@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="it.unibo.paw.hibernate.Accertamento" table="accertamenti">
+		<id name="accId" column="accId">
+			<!-- <generator class="native" /> -->
+		</id>
+		<property name="codiceAcc" column="codiceAcc" />
+		<property name="nome" column="nome" />
+		<property name="descrizione" column="descrizione" />
+
+		<many-to-one name="tipoAccertamento" class="it.unibo.paw.hibernate.TipoAccertamento" fetch="select">
+			<column name="tipoAccId" not-null="true" />
+		</many-to-one>
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:complexType name="corpoType">
+        <xs:sequence>
+            <xs:element name="paragrafo" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="letteraType">
+        <xs:sequence>
+            <xs:element name="mittente">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="data" type="xs:date"/>
+            <xs:element name="destinatario">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="oggetto" type="xs:string"/>
+            <xs:element name="saluto-cortese" type="xs:string"/>
+            <xs:element name="corpo" type="corpoType"/>
+            <xs:element name="chiusura" type="xs:string"/>
+            <xs:element name="firma" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="lettere">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="lettera" type="letteraType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -20,8 +20,8 @@ public class Db2DAOFactory extends DAOFactory {
 	 */
 	public static final String DBURL = "jdbc:db2://diva.deis.unibo.it:50000/tw_stud";
 
-	public static final String USERNAME = "xxx";
-	public static final String PASSWORD = "xxx";
+	public static final String USERNAME = "XXX";
+	public static final String PASSWORD = "XXX";
 	
 
 	// --------------------------------------------

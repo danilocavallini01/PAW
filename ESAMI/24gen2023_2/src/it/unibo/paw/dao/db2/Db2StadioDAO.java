@@ -5,9 +5,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import it.unibo.paw.dao.PartitaDTO;
 import it.unibo.paw.dao.StadioDAO;
 import it.unibo.paw.dao.StadioDTO;
 
@@ -43,11 +46,15 @@ public class Db2StadioDAO implements StadioDAO {
 	static final String update = "UPDATE " + TABLE + " " + "SET " + CODICE + " = ? " + NOME + " = ? " + CITTA + " = ? "
 			+ "WHERE " + ID + " = ? ";
 
-	static final String total_games_grouped = "SELECT count(*),";
+	// -------------------------------------
+	static final String total_games_grouped = "SELECT " + Db2PartitaDAO.CATEGORIA + ",count(*) FROM " + Db2PartitaDAO.TABLE + " WHERE " + Db2PartitaDAO.STADIO + " = ? "
+			+ "GROUP BY " + Db2PartitaDAO.CATEGORIA;
+	
+	static final String get_partite_by_stadio = "SELECT * FROM " + Db2PartitaDAO.TABLE + " WHERE " + Db2PartitaDAO.STADIO + " = ? ";
 	// -------------------------------------
 
 	static final String create = "CREATE " + "TABLE " + TABLE + " ( " + ID + " INT NOT NULL PRIMARY KEY, " + CODICE
-			+ " INT , " + NOME + " VARCHAR(50) , " + CITTA + " VARCHAR(50) , " + "( ";
+			+ " INT , " + NOME + " VARCHAR(50) , " + CITTA + " VARCHAR(50)" + ") ";
 
 	static final String drop = "DROP " + "TABLE " + TABLE + " ";
 
@@ -137,9 +144,31 @@ public class Db2StadioDAO implements StadioDAO {
 				
 				result = entry;
 			}
+			
+			prep_stmt = conn.prepareStatement(get_partite_by_stadio);
+			prep_stmt.clearParameters();
+			prep_stmt.setInt(1, id);
+			
+			rs = prep_stmt.executeQuery();
 
+			List<PartitaDTO> listaPartite= new ArrayList<PartitaDTO>();
+			while ( rs.next() ) {
+				PartitaDTO entry = new PartitaDTO();
+				entry.setId(rs.getInt(Db2PartitaDAO.ID));
+				entry.setCodicePartita(rs.getInt(Db2PartitaDAO.CODICEPARTITA));
+				entry.setCategoria(rs.getString(Db2PartitaDAO.CATEGORIA));
+				entry.setGirone(rs.getString(Db2PartitaDAO.GIRONE));
+				entry.setNomeSquadraCasa(rs.getString(Db2PartitaDAO.NOMESQUADRACASA));
+				entry.setNomeSquadraOspite(rs.getString(Db2PartitaDAO.NOMESQUADRAOSPITE));
+				long secs = rs.getDate(Db2PartitaDAO.DATA).getTime();
+				entry.setData(new java.util.Date(secs));
+				
+				listaPartite.add(entry);
+			}
+			
+			result.setPartite(listaPartite);
+			
 			rs.close();
-
 			prep_stmt.close();
 		} catch (Exception e) {
 			System.err.println("read(): failed to retrieve entry with id = " + id + ": " + e.getMessage());
@@ -171,7 +200,7 @@ public class Db2StadioDAO implements StadioDAO {
 			prep_stmt.clearParameters();
 			prep_stmt.setInt(1, id);
 			ResultSet rs = prep_stmt.executeQuery();
-			if (rs.next()) {
+			while(rs.next()) {
 				result.put(rs.getString(1), rs.getInt(2));
 			}
 

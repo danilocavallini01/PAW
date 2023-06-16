@@ -26,7 +26,7 @@ public class Db2PartitaDAO implements PartitaDAO {
 	static final String NOMESQUADRACASA = "NomeSquadraCasa";
 	static final String NOMESQUADRAOSPITE = "NomeSquadraOspite";
 	static final String DATA = "Data";
-	static final String STADIO = "Stadio";
+	static final String STADIO = "idStadio";
 
 	// == STATEMENT SQL
 	// ====================================================================
@@ -46,7 +46,7 @@ public class Db2PartitaDAO implements PartitaDAO {
 
 	// UPDATE table SET xxxcolumn = ?, ... WHERE idcolumn = ?;
 	static final String update = "UPDATE " + TABLE + " " + "SET " + CODICEPARTITA + " = ? " + CATEGORIA + " = ? "
-			+ GIRONE + " = ? " + NOMESQUADRACASA + " = ? " + NOMESQUADRAOSPITE + " = ? " + DATA + " = ? " + "WHERE "
+			+ GIRONE + " = ? " + NOMESQUADRACASA + " = ? " + NOMESQUADRAOSPITE + " = ? " + DATA + " = ? " + STADIO + " = ? " + "WHERE "
 			+ ID + " = ? ";
 
 	// -------------------------------------
@@ -54,12 +54,12 @@ public class Db2PartitaDAO implements PartitaDAO {
 	static final String create = "CREATE " + "TABLE " + TABLE + " ( " + ID + " INT NOT NULL PRIMARY KEY, "
 			+ CODICEPARTITA + " INT , " + CATEGORIA + " VARCHAR(50) , " + GIRONE + " VARCHAR(50) , " + NOMESQUADRACASA
 			+ " VARCHAR(50) , " + NOMESQUADRAOSPITE + " VARCHAR(50) , " + DATA + " DATE , " + STADIO + " INT NOT NULL,"
-			+ "FOREIGN KEY (" + STADIO + ") REFERENCES Stadio(id)" + "( ";
+			+ "FOREIGN KEY (" + STADIO + ") REFERENCES Stadio(id)" + ") ";
 
 	static final String drop = "DROP " + "TABLE " + TABLE + " ";
 
 // ------------------- METODI DAO -----------------------
-	public void create(PartitaDTO partita) {
+	public void create(PartitaDTO partita, StadioDTO stadioAssociato) {
 		if (partita == null) {
 			System.err.println("create(): failed to create a null entry");
 			return;
@@ -77,6 +77,7 @@ public class Db2PartitaDAO implements PartitaDAO {
 			prep_stmt.setString(5, partita.getNomeSquadraCasa());
 			prep_stmt.setString(6, partita.getNomeSquadraOspite());
 			prep_stmt.setDate(7, new java.sql.Date(partita.getData().getTime()));
+			prep_stmt.setInt(8, stadioAssociato.getId());
 
 			prep_stmt.executeUpdate();
 			prep_stmt.close();
@@ -166,47 +167,10 @@ public class Db2PartitaDAO implements PartitaDAO {
 		return result;
 	}
 
-	public List<PartitaDTO> findPartiteByStadio(int id) {
-		List<PartitaDTO> result = null;
-		if (id < 0) {
-			System.err.println("read(): cannot read an entry with a negative id");
-			return result;
-		}
-		Connection conn = Db2DAOFactory.createConnection();
-		result = new ArrayList<PartitaDTO>();
-		try {
-			PreparedStatement prep_stmt = conn.prepareStatement("SELCET * FROM " + TABLE + " WHERE " + STADIO + " = ?");
-			prep_stmt.clearParameters();
-			prep_stmt.setInt(1, id);
-			ResultSet rs = prep_stmt.executeQuery();
-
-			while (rs.next()) {
-				PartitaDTO entry = new PartitaDTO();
-				entry.setId(rs.getInt(ID));
-				entry.setCodicePartita(rs.getInt(CODICEPARTITA));
-				entry.setCategoria(rs.getString(CATEGORIA));
-				entry.setGirone(rs.getString(GIRONE));
-				entry.setNomeSquadraCasa(rs.getString(NOMESQUADRACASA));
-				entry.setNomeSquadraOspite(rs.getString(NOMESQUADRAOSPITE));
-				long secs = rs.getDate(DATA).getTime();
-				entry.setData(new java.util.Date(secs));
-
-				result.add(entry);
-			}
-			rs.close();
-			prep_stmt.close();
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		} finally {
-			Db2DAOFactory.closeConnection(conn);
-		}
-		return result;
-	}
 
 	// -------------------------------------------------------------------------------------
 
-	public boolean update(PartitaDTO partita) {
+	public boolean update(PartitaDTO partita, StadioDTO stadioAssociato) {
 		boolean result = false;
 		if (partita == null) {
 			System.err.println("create(): failed to create a null entry");
@@ -225,6 +189,7 @@ public class Db2PartitaDAO implements PartitaDAO {
 			prep_stmt.setString(5, partita.getNomeSquadraCasa());
 			prep_stmt.setString(6, partita.getNomeSquadraOspite());
 			prep_stmt.setDate(7, new java.sql.Date(partita.getData().getTime()));
+			prep_stmt.setInt(8, stadioAssociato.getId());
 
 			prep_stmt.executeUpdate();
 			result = true;

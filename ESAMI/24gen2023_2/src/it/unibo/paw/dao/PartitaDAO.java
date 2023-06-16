@@ -4,11 +4,11 @@ public interface PartitaDAO {
 
 	//-------------------------------------
 
-	public void create (PartitaDTO partita);
+	public void create (PartitaDTO partita, StadioDTO stadioAssociato);
 
 	public PartitaDTO read (int id);
 
-	public boolean update (PartitaDTO partita);
+	public boolean update (PartitaDTO partita, StadioDTO stadioAssociato);
 
 	public boolean delete (int id);
 

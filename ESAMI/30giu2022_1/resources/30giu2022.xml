@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archivio xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="30giu2022.xsd">
+  <ArchivioAudiovisivo>
+    <audiovisivo>
+      <cognome>cognome</cognome>
+      <nome>nome</nome>
+      <titoloItaliano>titoloItaliano</titoloItaliano>
+      <nazione>nazione</nazione>
+      <tipoColore>colore</tipoColore>
+      <durata>1</durata>
+      <tipologia>tipologia</tipologia>
+      <tipoColore>blu-ray</tipoColore>
+      <annoProduzione>1</annoProduzione>
+      <consultabile>true</consultabile>
+      <collocazione>05.02.20.053.BIB</collocazione>
+    </audiovisivo>
+  </ArchivioAudiovisivo>
+  <ArchivioPellicola>
+    <pellicola>
+      <regia>regia</regia>
+      <titolo>titolo</titolo>
+      <buonoStato>true</buonoStato>
+      <tipologia>16</tipologia>
+    </pellicola>
+    <pellicola>
+      <regia>regia</regia>
+      <titolo>titolo</titolo>
+      <buonoStato>false</buonoStato>
+      <tipologia>16</tipologia>
+    </pellicola>
+  </ArchivioPellicola>
+</archivio>

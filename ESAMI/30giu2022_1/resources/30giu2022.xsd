@@ -1,0 +1,83 @@
+<?xml version="1.0" ?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:complexType name="AudiovisivoType">
+		<xs:sequence>
+			<xs:element name="cognome" type="xs:string" />
+			<xs:element name="nome" type="xs:string" />
+			<xs:element name="titoloItaliano" type="xs:string" />
+			<xs:element name="nazione" type="xs:string" />
+			<xs:element name="tipoColore">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="colore" />
+						<xs:enumeration value="BN" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="durata" type="xs:positiveInteger" />
+			<xs:element name="tipologia" type="xs:string" />
+			<xs:element name="tipoColore">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="blu-ray" />
+						<xs:enumeration value="DVD" />
+						<xs:enumeration value="Divx" />
+						<xs:enumeration value="VHS" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="annoProduzione" type="xs:positiveInteger" />
+			<xs:element name="consultabile" type="xs:boolean" />
+			
+			<xs:element name="collocazione">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[0-9][0-9].[0-9][0-9].[0-9][0-9].[0-9][0-9][0-9].[a-zA-Z][a-zA-Z][a-zA-Z]" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	
+	<xs:complexType name="PellicolaType">
+		<xs:sequence>
+			<xs:element name="regia" type="xs:string" />
+			<xs:element name="titolo" type="xs:string" />
+			
+			<xs:element name="buonoStato" type="xs:boolean" />
+			
+			<xs:element name="tipologia">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:enumeration value="35" />
+						<xs:enumeration value="16" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="AudiovisivoList">
+		<xs:sequence>
+			<xs:element name="audiovisivo" type="AudiovisivoType" minOccurs="0" maxOccurs="31000" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="PellicolaList">
+		<xs:sequence>
+			<xs:element name="pellicola" type="PellicolaType" minOccurs="0" maxOccurs="60000" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ArchivioType">
+		<xs:sequence>
+			<xs:element name="ArchivioAudiovisivo" type="AudiovisivoList" />
+			<xs:element name="ArchivioPellicola" type="PellicolaList" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="archivio" type="ArchivioType" />
+</xs:schema>

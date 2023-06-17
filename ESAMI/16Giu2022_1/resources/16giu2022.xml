@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bibliotecaMusicale
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="16giu2022.xsd">
+	<musicista>
+		<nome>van gogh</nome>
+		<cognome>cognome</cognome>
+		<nomeArte>nomeArte</nomeArte>
+		<genere>genere</genere>
+		<album>
+			<titoloAlbum>titoloAlbum</titoloAlbum>
+			<annoPubblicazione>1</annoPubblicazione>
+			<brano>
+				<titoloBrano>Bro</titoloBrano>
+				<lunghezza>02:02</lunghezza>
+			</brano>
+		</album>
+	</musicista>
+</bibliotecaMusicale>

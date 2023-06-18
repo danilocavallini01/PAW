@@ -1,0 +1,37 @@
+Prenotazioni iniziali: 
+-Prenotazione 1: 
+	Cognome: Pallino Pinco
+	Data: 2018-01-14
+	Numero persone: 5
+	Cellulare: blablabla
+	Tavolo: 3
+
+Prenotazioni dopo l'inserimento: 
+-Prenotazione 1: 
+	Cognome: Pallino Pinco
+	Data: 2018-01-14
+	Numero persone: 5
+	Cellulare: blablabla
+	Tavolo: 3
+
+-Prenotazione 2: 
+	Cognome: PincoPanco
+	Data: 2017-01-18
+	Numero persone: 4
+	Cellulare: asdasd
+	Tavolo: 4
+
+-Prenotazione 3: 
+	Cognome: PincoPallino
+	Data: 2017-01-18
+	Numero persone: 10
+	Cellulare: asdasd
+	Tavolo: 3
+
+-Prenotazione 4: 
+	Cognome: PallinoPanco
+	Data: 2017-01-18
+	Numero persone: 3
+	Cellulare: asdasd
+	Tavolo: 1
+

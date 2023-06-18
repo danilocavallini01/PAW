@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:complexType name="GDType">
+		<xs:sequence>
+			<xs:element name="codice" type="xs:integer" />
+			<xs:element name="tipo">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="AV" />
+						<xs:enumeration value="CDM" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="titolo" type="xs:string" />
+			<xs:element name="autore" type="xs:string" />
+			<xs:element name="casaProduttrice" type="xs:string" />
+			
+			<xs:element name="fasciaEta">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[0-9]+-[0-9]+" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lingua" type="xs:string" />
+			<xs:element name="durata" type="xs:positiveInteger" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="GTType">
+		<xs:sequence>
+			<xs:element name="codice" type="xs:integer" />
+			<xs:element name="nome" type="xs:string" />
+			<xs:element name="autore" type="xs:string" />
+			<xs:element name="marca" type="xs:string" />
+			
+			<xs:element name="fasciaEta">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[0-9]+-[0-9]+" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			
+			<xs:element name="modalitaUtilizzo">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="GI" />
+						<xs:enumeration value="GG" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="LudotecaType">
+		<xs:sequence>
+			<xs:element name="GD" type="GDType" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="GT" type="GTType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="Ludoteca" type="LudotecaType"></xs:element>
+
+</xs:schema>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ludoteca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="29Giu2021.xsd">
+  <GD>
+    <codice>0</codice>
+    <tipo>AV</tipo>
+    <titolo>titolo</titolo>
+    <autore>autore</autore>
+    <casaProduttrice>casaProduttrice</casaProduttrice>
+    <fasciaEta>3-22</fasciaEta>
+    <lingua>lingua</lingua>
+    <durata>1</durata>
+  </GD>
+  <GT>
+    <codice>0</codice>
+    <nome>dsdsd</nome>
+    <autore>autore</autore>
+    <marca>Blue</marca>
+    <fasciaEta>6-8</fasciaEta>
+    <modalitaUtilizzo>GI</modalitaUtilizzo>
+  </GT>
+   <GT>
+    <codice>0</codice>
+    <nome>dsdsd</nome>
+    <autore>autore</autore>
+    <marca>Blue</marca>
+    <fasciaEta>6-9</fasciaEta>
+    <modalitaUtilizzo>GI</modalitaUtilizzo>
+  </GT>
+</Ludoteca>

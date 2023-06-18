@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:complexType name="VoloType">
+		<xs:sequence>
+			<xs:element name="cliente" type="ClienteType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ClienteType">
+		<xs:sequence>
+			<xs:element name="nome" type="xs:string" />
+			<xs:element name="cognome" type="xs:string" />
+			<xs:element name="numPassaporto" type="xs:integer" />
+			<xs:element name="prenotazione" type="PrenotazioneType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="PrenotazioneType">
+		<xs:sequence>
+			<xs:element name="codice" type="xs:string" />
+			<xs:element name="nomeCompagniaAerea" type="xs:string" />
+			<xs:element name="tipoVolo">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Andata-Ritorno" />
+						<xs:enumeration value="Solo-Andata" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="aeroportoPartenza" type="xs:string" />
+			<xs:element name="dataOraPartenza" type="xs:dateTime" />
+			
+			<xs:element name="aeroportoArrivo" type="xs:string" />
+			<xs:element name="dataOraArrivo" type="xs:dateTime" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="Voli" type="VoloType" />
+
+</xs:schema>

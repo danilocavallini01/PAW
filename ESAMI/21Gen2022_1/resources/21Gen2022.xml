@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Voli xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="21Gen2022.xsd">
+  <cliente>
+    <nome>nome</nome>
+    <cognome>cognome</cognome>
+    <numPassaporto>0</numPassaporto>
+    <prenotazione>
+      <codice>codice</codice>
+      <nomeCompagniaAerea>Alitalia</nomeCompagniaAerea>
+      <tipoVolo>Solo-Andata</tipoVolo>
+      <aeroportoPartenza>aeroportoPartenza</aeroportoPartenza>
+      <dataOraPartenza>2001-12-31T12:00:00</dataOraPartenza>
+      <aeroportoArrivo>aeroportoArrivo</aeroportoArrivo>
+      <dataOraArrivo>2001-12-31T12:00:00</dataOraArrivo>
+    </prenotazione>
+  </cliente>
+</Voli>

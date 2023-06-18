@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+	<class name="it.unibo.paw.hibernate.VoloAeroportoBo" table="voloAeroportoBo">
+		<id name="id" column="id">
+			<!-- <generator class="native"/> -->
+		</id>
+		<property name="codVolo" column="codVolo" unique="true"/>
+		<property name="compagniaAerea" column="compagniaAerea" />
+		<property name="localitaDestinazione" column="localitaDestinazione" />
+		<property name="dataPartenza" column="dataPartenza" />
+		<property name="orarioPartenza" column="orarioPartenza" />
+
+		<set name="passeggeri" table="passeggeri_voli">
+			<key column="idVolo" />
+			<many-to-many column="idPasseggero"
+				class="it.unibo.paw.hibernate.Passeggero" />
+		</set>
+	</class>
+</hibernate-mapping>

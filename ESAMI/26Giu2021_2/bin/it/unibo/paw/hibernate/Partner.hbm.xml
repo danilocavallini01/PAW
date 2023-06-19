@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="it.unibo.paw.hibernate.Partner" table="partner">
+		<id name="id" column="id">
+			<!-- <generator class="native"/> -->
+		</id>
+		<property name="siglaPartner" column="siglaPartner" unique="true" not-null="true"/>
+		<property name="nome" column="nome" />
+
+		<set name="workPackages" table="workpackage_partner" inverse="true" fetch="select" cascade="all">
+			<key column="idPartner" />
+			<many-to-many column="idWorkPackage" class="it.unibo.paw.hibernate.WorkPackage" />
+		</set>
+
+	</class>
+</hibernate-mapping>

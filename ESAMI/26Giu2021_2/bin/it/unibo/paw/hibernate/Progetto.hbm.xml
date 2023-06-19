@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="it.unibo.paw.hibernate.Progetto" table="progetto">
+		<id name="id" column="id" />
+
+		<property name="codiceProgetto" column="codiceProgetto" not-null="true" unique="true" />
+		<property name="nomeProgetto" column="nomeProgetto" />
+		<property name="annoInizio" column="annoInizio" />
+		<property name="durata" column="durata" />
+
+		<set name="workPackages" table="work_package" inverse="true" fetch="select">
+			<key>
+				<column name="idProgetto" not-null="true" />
+			</key>
+			<one-to-many class="it.unibo.paw.hibernate.WorkPackage" />
+		</set>
+
+	</class>
+</hibernate-mapping>

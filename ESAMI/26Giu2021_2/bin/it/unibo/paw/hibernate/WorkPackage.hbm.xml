@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="it.unibo.paw.hibernate.WorkPackage" table="work_package">
+		<id name="id" column="id">
+			<!-- <generator class="native" /> -->
+		</id>
+
+		<property name="nome" column="nome" unique="true" not-null="true"/>
+		<property name="titolo" column="titolo" />
+		<property name="descrizione" column="descrizione" />
+
+		<many-to-one name="progetto" class="it.unibo.paw.hibernate.Progetto" fetch="select">
+			<column name="idProgetto" not-null="true" />
+		</many-to-one>
+
+		<set name="partners" table="workpackage_partner" inverse="false" fetch="select" cascade="all">
+			<key column="idWorkPackage" />
+			<many-to-many column="idPartner" class="it.unibo.paw.hibernate.Partner" />
+		</set>
+
+
+	</class>
+</hibernate-mapping>

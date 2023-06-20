@@ -31,8 +31,11 @@ public class AcquistoRepository {
 	// ====================================================================
 
 	// create table
-	private static String create = "CREATE TABLE " + TABLE + " ( " + ID + " INT NOT NULL PRIMARY KEY," + CODICEACQUISTO
-			+ " INT NOT NULL UNIQUE, " + IMPORTO + " FLOAT NOT NULL, " + NOMEACQUIRENTE + " VARCHAR(50) NOT NULL, "
+	private static String create = "CREATE TABLE " + TABLE + " ( " + 
+			ID + " INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1)," 
+			+ CODICEACQUISTO + " INT NOT NULL UNIQUE, " 
+			+ IMPORTO + " FLOAT NOT NULL, " 
+			+ NOMEACQUIRENTE + " VARCHAR(50) NOT NULL, "
 			+ COGNOMEACQUIRENTE + " VARCHAR(50) NOT NULL )";
 
 	// drop table
@@ -41,8 +44,8 @@ public class AcquistoRepository {
 	// -------------------------------------------------------------------------------------
 
 	// INSERT INTO table ( email, description, ...) VALUES ( ?,?, ... );
-	private static final String insert = "INSERT INTO " + TABLE + " ( " + ID + ", " + CODICEACQUISTO + ", " + IMPORTO
-			+ ", " + NOMEACQUIRENTE + ", " + COGNOMEACQUIRENTE + ") " + "VALUES (?,?,?,?,?) ";
+	private static final String insert = "INSERT INTO " + TABLE + " ( " + CODICEACQUISTO + ", " + IMPORTO
+			+ ", " + NOMEACQUIRENTE + ", " + COGNOMEACQUIRENTE + ") " + "VALUES (?,?,?,?) ";
 
 	// DELETE FROM table WHERE idcolumn = ?;
 	private static String delete = "DELETE " + "FROM " + TABLE + " " + "WHERE " + ID + " = ? ";
@@ -52,6 +55,8 @@ public class AcquistoRepository {
 			+ NOMEACQUIRENTE + " = ?, " + COGNOMEACQUIRENTE + " = ? " + " WHERE " + ID + " = ? ";
 
 	private static String read = "SELECT * " + " FROM " + TABLE + " WHERE " + ID + " = ?";
+	
+	private static String check_query = "SELECT " + ID + " FROM " + TABLE + " WHERE " + CODICEACQUISTO + " = ?"; 
 
 	private static String read_acquisti_where_importo_gt_soglia = "SELECT " + CODICEACQUISTO + " FROM " + TABLE
 			+ " WHERE " + IMPORTO + " > ? ";
@@ -107,24 +112,43 @@ public class AcquistoRepository {
 	public void persist(Acquisto a) throws PersistenceException {
 		Connection connection = null;
 		PreparedStatement statement = null;
+		PreparedStatement statement2 = null;
 
 		try {
 			connection = this.dataSource.getConnection();
+			TransactionHelper.setTransaction(connection, Connection.TRANSACTION_READ_UNCOMMITTED);
+			
 			statement = connection.prepareStatement(insert);
 
-			statement.setInt(1, a.getId());
-			statement.setInt(2, a.getCodiceAcquisto());
-			statement.setFloat(3, a.getImporto());
-			statement.setString(4, a.getNomeAcquirente());
-			statement.setString(5, a.getCognomeAcquirente());
+			statement.setInt(1, a.getCodiceAcquisto());
+			statement.setFloat(2, a.getImporto());
+			statement.setString(3, a.getNomeAcquirente());
+			statement.setString(4, a.getCognomeAcquirente());
 
 			statement.executeUpdate();
+			
+			statement2 = connection.prepareStatement(check_query);
+			statement2.setInt(1, a.getCodiceAcquisto());
+			
+			ResultSet rs = statement2.executeQuery();
+			
+			if ( rs.next() ) {
+				connection.commit();
+				a.setId(rs.getInt(ID));
+			} else {
+				connection.rollback();
+			}
+			
 		} catch (SQLException e) {
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			try {
+				if (connection != null)
+					connection.rollback();
 				if (statement != null)
 					statement.close();
+				if (statement2 != null)
+					statement2.close();
 				if (connection != null) {
 					connection.close();
 					connection = null;

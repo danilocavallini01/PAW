@@ -25,21 +25,18 @@ public class Test {
 			ar.createTable();
 			
 			Acquisto a1 = new Acquisto();
-			a1.setId(1);
 			a1.setCodiceAcquisto(1);
 			a1.setImporto(900);
 			a1.setNomeAcquirente("Danilo");
 			a1.setCognomeAcquirente("Cavallini");
 
 			Acquisto a2 = new Acquisto();
-			a2.setId(2);
 			a2.setCodiceAcquisto(2);
 			a2.setImporto(1500);
 			a2.setNomeAcquirente("Danilo1");
 			a2.setCognomeAcquirente("Cavallini1");
 
 			Acquisto a3 = new Acquisto();
-			a3.setId(3);
 			a3.setCodiceAcquisto(3);
 			a3.setImporto(200);
 			a3.setNomeAcquirente("Danilo2");

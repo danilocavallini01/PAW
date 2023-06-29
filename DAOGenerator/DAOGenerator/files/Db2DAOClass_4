@@ -1,5 +1,0 @@
-
-	static final String drop = "DROP " +
-		"TABLE " + TABLE + " ";
-
-// ------------------- METODI DAO -----------------------
